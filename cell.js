@@ -1,6 +1,4 @@
-import { Vector } from "./vector";
-
-export class Cell {
+class Cell {
   constructor(x, y, isAlive = false) {
     this.vector = new Vector(x, y);
     this.isAlive = isAlive;

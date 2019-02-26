@@ -1,5 +1,21 @@
 (function() {
-  const grid = new Grid(10, 10);
+  const map = [
+    'oooxooooox',
+    'oooxooooox',
+    'oooxooooox',
+    'oooooooooo',
+    'oooxooooxo',
+    'oooxooooxo',
+    'oooxooooxo',
+    'xooooxoooo',
+    'xooooxoooo',
+    'xooooxoooo',
+  ]
 
-  console.log(grid);
+  const world = new World(map);
+
+  for (let i = 0; i < 5; i++) {
+    console.log(world.toString());
+    world.tick();
+  }
 })();

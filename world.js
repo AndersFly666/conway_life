@@ -1,23 +1,6 @@
 class World {
-  constructor(worldMap) {
-    try {
-      const width = worldMap[0].length;
-      const height = worldMap.length;
-      this.grid = new Grid(width, height);
-      this.fillGrid(worldMap);
-    } catch(e) {
-      console.error('Wrong map format!');
-    }
-  }
-
-  fillGrid(worldMap) {
-    this.grid.forEach((x, y) => {
-      const symbol = worldMap[y][x];
-      if (symbol === 'x') {
-        const cell = this.grid.getCell(x, y);
-        cell.isAlive = true;
-      }
-    });
+  constructor(width, height) {
+    this.grid = new Grid(width, height);
   }
 
   toString() {

@@ -1,15 +1,17 @@
 (function() {
-  const padding = 40;
+  const cellSize = 10;
+  const boardWidth = 640;
+  const boardHeight = 480;
 
-  const world = new World(640, 480);
+  const world = new World(Math.ceil(boardWidth / cellSize), Math.ceil(boardHeight / cellSize));
 
   let gridCanvas, gridCtx, cellsCanvas, 
       cellsCtx, intervalHandler, startBtn, stopBtn;
 
   const boardConfig = {
-    width: world.grid.width,
-    height: world.grid.height,
-    padding,
+    width: boardWidth,
+    height: boardHeight,
+    padding: cellSize,
   };
 
   window.onload = function() {
@@ -32,14 +34,14 @@
     };
 
     cellsCanvas.onclick = function(e) {
-      const topOffset = 90;
-      const leftOffset = 440;
+      const topOffset = 50;
+      const leftOffset = 400;
       const { padding } = boardConfig;
       const { clientX, clientY } = e;
       const { grid } = world;
 
-      const x = Math.ceil((clientX - leftOffset - padding) / padding); 
-      const y = Math.ceil((clientY - topOffset - padding) / padding);
+      const x = Math.ceil((clientX - leftOffset - padding) / padding) - 1; 
+      const y = Math.ceil((clientY - topOffset - padding) / padding) - 1;
       
       const cell = grid.getCell(x, y);
       cell.isAlive = !cell.isAlive;
@@ -82,21 +84,21 @@
   }
 
   function drawCell(ctx, x, y) {
-    const coordX = x * padding + 3;
-    const coordY = y * padding + 3;
-    ctx.fillRect(coordX, coordY, padding - 5, padding - 5);
+    const coordX = x * cellSize + 3;
+    const coordY = y * cellSize + 3;
+    ctx.fillRect(coordX, coordY, cellSize - 5, cellSize - 5);
   }
 
   function clearCell(ctx, x, y) {
-    const coordX = x * padding + 3;
-    const coordY = y * padding + 3;
-    ctx.clearRect(coordX, coordY, padding - 5, padding - 5);
+    const coordX = x * cellSize + 3;
+    const coordY = y * cellSize + 3;
+    ctx.clearRect(coordX, coordY, cellSize - 5, cellSize - 5);
   }
 
   function start(ctx, config) {
     return setInterval(() => {
       drawCells(ctx, config);
       world.tick();
-    }, 500);
+    }, 60);
   }
 })();
